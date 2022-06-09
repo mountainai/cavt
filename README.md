@@ -1,4 +1,4 @@
-## Swin Transformer - PyTorch
+## Video Transformer for Engagement Prediction Task - PyTorch
 Implementation of the Class Attention in Video Transformer
 
 ### Usage
