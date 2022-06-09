@@ -8,7 +8,7 @@ Then put them under optimal_checkpoint directory.
 Step 1: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
    with Docker to perform face extraction on multiple videos.
 
-FeatureExtraction.exe -nomask -f "video1.avi" -f "video2.avi" -f "video3.avi"
+FeatureExtraction.exe -nomask -simscale 1  -f "video1.avi" -f "video2.avi" -f "video3.avi"
 
 Step 2: Run tools/test.sh to reproduce our results for two CavT models as follows.
 
