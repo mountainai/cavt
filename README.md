@@ -10,6 +10,44 @@ Step 1: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https:
 
 FeatureExtraction.exe -nomask -simscale 1  -f "video1.avi" -f "video2.avi" -f "video3.avi"
 
+Step 2: Organize datasets according to directory structure.
+
+```
+Engwild2020
+	Train_112_scale1_frames
+		1100011002_aligned
+			frame_det_00_000001.bmp
+			frame_det_00_000001.bmp
+			......
+		......
+	validation_112_scale1_frames
+		2100011002_aligned
+			frame_det_00_000001.bmp
+			frame_det_00_000001.bmp
+			......
+		......
+DAiSEE
+    DataSet
+		Train_112_scale1_frames
+			1100011001_aligned
+			    frame_det_00_000001.bmp
+				frame_det_00_000001.bmp
+				......
+			......
+		validation_112_scale1_frames
+		    2100011001_aligned
+			    frame_det_00_000001.bmp
+				frame_det_00_000001.bmp
+				......
+			......
+	    test_112_scale1_frames
+		    3100011001_aligned
+			    frame_det_00_000001.bmp
+				frame_det_00_000001.bmp
+				......
+			......
+```
+
 Step 2: Run tools/test.sh to reproduce our results for two CavT models as follows.
 
 ```
