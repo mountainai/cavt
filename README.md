@@ -17,38 +17,28 @@ Step 3: Organize datasets according to directory structure.
 
 ```
 Engwild2020
-	Train_112_scale1_frames
-		1100011002_aligned
-			frame_det_00_000001.bmp
-			frame_det_00_000001.bmp
-			......
-		......
 	validation_112_scale1_frames
+		2100011001_aligned
+			frame_det_00_000001.bmp
+			frame_det_00_000002.bmp
+			......
 		2100011002_aligned
 			frame_det_00_000001.bmp
-			frame_det_00_000001.bmp
+			frame_det_00_000002.bmp
 			......
 		......
 DAiSEE
     DataSet
-		Train_112_scale1_frames
-			1100011001_aligned
-			    frame_det_00_000001.bmp
-				frame_det_00_000001.bmp
-				......
+	test_112_scale1_frames
+		3100011001_aligned
+			frame_det_00_000001.bmp
+			frame_det_00_000002.bmp
 			......
-		validation_112_scale1_frames
-		    2100011001_aligned
-			    frame_det_00_000001.bmp
-				frame_det_00_000001.bmp
-				......
+		3100011002_aligned
+			frame_det_00_000001.bmp
+			frame_det_00_000002.bmp
 			......
-	    test_112_scale1_frames
-		    3100011001_aligned
-			    frame_det_00_000001.bmp
-				frame_det_00_000001.bmp
-				......
-			......
+		......
 ```
 
 Step 4: Run tools/test.sh to reproduce our results for two CavT models as follows.
