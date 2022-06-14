@@ -9,7 +9,7 @@ URL: https://pan.baidu.com/s/15ZxgAKGKFQEsCN-GlzKJSg
 Code: cbhd
 
 Step 2: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
-   with Docker to perform face extraction on multiple videos.
+   with Docker to perform face extraction on validation set (EmotiW-EP) and test set (DAiSEE).
 
 FeatureExtraction.exe -nomask -simscale 1  -f "video1.avi" -f "video2.avi" -f "video3.avi"
 
