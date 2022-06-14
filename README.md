@@ -5,6 +5,7 @@ Implementation of the Class Attention in Video Transformer
 Step 1: Download model files from pan.baidu.com and put them optimal_checkpoint folder.
 
 URL: https://pan.baidu.com/s/15ZxgAKGKFQEsCN-GlzKJSg
+
 Code: cbhd
 
 Step 2: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
