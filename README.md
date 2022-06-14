@@ -2,15 +2,16 @@
 Implementation of the Class Attention in Video Transformer
 
 ### Usage
-For space limitation,send two CavT model files trained on the EmotiW-EP dataset and DAiSEE dataset upon request.
-Then put them under optimal_checkpoint directory (create it if no existed).
+Step 1: Download model files from pan.baidu.com and put them optimal_checkpoint folder.
+URL: https://pan.baidu.com/s/15ZxgAKGKFQEsCN-GlzKJSg
+Code: cbhd
 
-Step 1: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
+Step 2: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
    with Docker to perform face extraction on multiple videos.
 
 FeatureExtraction.exe -nomask -simscale 1  -f "video1.avi" -f "video2.avi" -f "video3.avi"
 
-Step 2: Organize datasets according to directory structure.
+Step 3: Organize datasets according to directory structure.
 
 ```
 Engwild2020
@@ -48,7 +49,7 @@ DAiSEE
 			......
 ```
 
-Step 3: Run tools/test.sh to reproduce our results for two CavT models as follows.
+Step 4: Run tools/test.sh to reproduce our results for two CavT models as follows.
 
 ```
 Evaluating mse ...
