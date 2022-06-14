@@ -3,6 +3,7 @@ Implementation of the Class Attention in Video Transformer
 
 ### Usage
 Step 1: Download model files from pan.baidu.com and put them optimal_checkpoint folder.
+
 URL: https://pan.baidu.com/s/15ZxgAKGKFQEsCN-GlzKJSg
 Code: cbhd
 
