@@ -81,8 +81,8 @@ class SampleFrames:
                 to the next transform in pipeline.
         """
         total_frames = results['total_frames']
-        clip_start_idx = results['clip_start_idx']
-        frame_inds = self._sample_frames(total_frames, clip_start_idx)
+        inst_start_idx = results['instance_start_idx']
+        frame_inds = self._sample_frames(total_frames, inst_start_idx)
         frame_inds = np.concatenate(frame_inds)
         frame_inds = frame_inds.reshape((-1, self.num_wins))
         frame_inds = np.mod(frame_inds, total_frames)
