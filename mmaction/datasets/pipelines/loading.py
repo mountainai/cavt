@@ -12,24 +12,25 @@ from ..builder import PIPELINES
 class SampleFrames:
     """Sample frames from the video.
 
-    Required keys are "total_frames", "start_index" , added or modified keys
-    are "frame_inds", "frame_interval".
+    Required keys are "total_frames", "start_index".
 
     Args:
-        clip_len (int): Frames of each sampled output clip.
+        num_wins (int): Frames of each sampled output clip.
+        alpha (int): Ratio of the window size and the stride size.
         test_mode (bool): Store True when building test or validation dataset.
             Default: False.
+        gamma (int): Sample rate to select the frames of slide windows.
     """
 
     def __init__(self,
-                 clip_len,
-                 clip_window_alpha=3,
+                 num_wins,
+                 alpha=3,
                  test_mode=False,
-                 downsample_ratio=1):
-        self.clip_len = clip_len
-        self.clip_window_alpha = clip_window_alpha
+                 gamma=1):
+        self.num_wins = num_wins
+        self.alpha = alpha
         self.test_mode = test_mode
-        self.downsample_ratio = downsample_ratio
+        self.gamma = gamma
 
     def _sort_by_binarytree(self, w_start, w_end):
         result = []
@@ -48,31 +49,29 @@ class SampleFrames:
 
         Args:
             num_frames (int): Total number of frame in the video.
+            clip_start_idx (int): Index of the frame in the first window.
 
         Returns:
-            seq(list): the indexes of frames sampled from the clips of the video.
+            seq(list): an instance sampled from the video, [[f1, f2, ..., fnum_wins]].
         """
 
-        clip_frame_num = num_frames // self.downsample_ratio
-        w_stride = (int)(clip_frame_num / (self.clip_window_alpha + self.clip_len - 1))
-        w_size = self.clip_window_alpha * w_stride
-        first_window_inds = self._sort_by_binarytree(0, w_size - 1)
-        num_windows = (clip_frame_num - w_size) // w_stride + 1
+        ds_frame_num = num_frames // self.gamma
+        w_stride = (int)(ds_frame_num / (self.alpha + self.num_wins - 1))
+        w_size = self.alpha * w_stride
 
         # build windows with frame positions in 2-path tree
+        first_window = self._sort_by_binarytree(0, w_size - 1)
         windows = []
-        for k in range(num_windows):
-            win_inds = np.array(first_window_inds) + k * w_stride
+        for k in range(self.num_wins):
+            win_inds = np.array(first_window) + k * w_stride
             windows.append(win_inds.tolist())
 
-        # build clips with the indices of drawn frames
-        inst_inds = np.array(windows).T
-        frame_inds = []
-        clip = np.array([i * self.downsample_ratio for i in range(clip_frame_num)])
-        for j in range(clip_start_idx, (clip_start_idx + 1)):
-            frame_inds.append(clip[inst_inds[j]][0:self.clip_len])
+        # Sample on the video to generate an instance
+        instances = np.array(windows).T
+        ds_video = np.array([i * self.gamma for i in range(ds_frame_num)])
+        sampled_instance = ds_video[instances[clip_start_idx]][0:self.num_wins]
 
-        return np.array(frame_inds)
+        return np.array([sampled_instance])
 
     def __call__(self, results):
         """Perform the SampleFrames loading.
@@ -85,20 +84,20 @@ class SampleFrames:
         clip_start_idx = results['clip_start_idx']
         frame_inds = self._sample_frames(total_frames, clip_start_idx)
         frame_inds = np.concatenate(frame_inds)
-        frame_inds = frame_inds.reshape((-1, self.clip_len))
+        frame_inds = frame_inds.reshape((-1, self.num_wins))
         frame_inds = np.mod(frame_inds, total_frames)
 
         start_index = results['start_index']
         frame_inds = np.concatenate(frame_inds) + start_index
 
         results['frame_inds'] = frame_inds.astype(np.int)
-        results['clip_len'] = self.clip_len
+        results['num_wins'] = self.num_wins
         return results
 
     def __repr__(self):
         repr_str = (f'{self.__class__.__name__}('
-                    f'clip_len={self.clip_len}, '
-                    f'clip_window_alpha={self.clip_window_alpha}')
+                    f'num_wins={self.num_wins}, '
+                    f'clip_window_alpha={self.alpha}')
         return repr_str
 
 @PIPELINES.register_module()
