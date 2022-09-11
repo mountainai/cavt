@@ -17,7 +17,7 @@ ann_file_test = 'data/engwild2020/engwild2020_validation_img_list.txt'
 img_norm_cfg = dict(
     mean=[97.77, 77.93, 73.06], std=[49.19, 41.64, 40.64], to_bgr=False)
 train_pipeline = [
-    dict(type='SampleFrames', clip_len=32, clip_window_alpha=3, downsample_ratio=5),
+    dict(type='SampleFrames', num_wins=32, alpha=3, gamma=5),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
@@ -26,7 +26,7 @@ train_pipeline = [
     dict(type='ToTensor', keys=['imgs', 'label'])
 ]
 val_pipeline = [
-    dict(type='SampleFrames', clip_len=32, clip_window_alpha=3, downsample_ratio=5, test_mode=True),
+    dict(type='SampleFrames', num_wins=32, alpha=3, gamma=5, test_mode=True),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0),
     dict(type='Normalize', **img_norm_cfg),
@@ -35,7 +35,7 @@ val_pipeline = [
     dict(type='ToTensor', keys=['imgs'])
 ]
 test_pipeline = [
-    dict(type='SampleFrames', clip_len=32, clip_window_alpha=3, downsample_ratio=5, test_mode=True),
+    dict(type='SampleFrames', num_wins=32, alpha=3, gamma=5, test_mode=True),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0),
     dict(type='Normalize', **img_norm_cfg),
@@ -59,7 +59,7 @@ data = dict(
         ann_file=ann_file_train,
         data_prefix=data_root,
         pipeline=train_pipeline,
-        duplicate_times = [4, 4, 4, 4]),
+        num_insts = [4, 4, 4, 4]),
     val=dict(
         type=dataset_type,
         ann_file=ann_file_val,
@@ -87,4 +87,3 @@ checkpoint_config = dict(interval=1)
 find_unused_parameters = False
 
 optimizer_config = dict(grad_clip=dict(max_norm=40, norm_type=2))
-
