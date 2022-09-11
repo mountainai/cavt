@@ -136,7 +136,7 @@ class Collect:
 class FormatShape:
     """Format final imgs shape to the given input_format.
 
-    Required keys are "imgs" and "clip_len", added or modified
+    Required keys are "imgs" and "num_wins", added or modified
     keys are "imgs" and "input_shape".
 
     Args:
@@ -166,8 +166,8 @@ class FormatShape:
         # [M x H x W x C]
         # M = N_crops * L
 
-        clip_len = results['clip_len']
-        imgs = imgs.reshape((-1, clip_len) + imgs.shape[1:])
+        num_windows = results['num_wins']
+        imgs = imgs.reshape((-1, num_windows) + imgs.shape[1:])
         # N_crops x L x H x W x C
         imgs = np.transpose(imgs, (0, 4, 1, 2, 3))
         # N_crops x C x L x H x W
@@ -180,4 +180,3 @@ class FormatShape:
         repr_str = self.__class__.__name__
         repr_str += f"(input_format='{self.input_format}')"
         return repr_str
-
