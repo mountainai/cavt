@@ -18,7 +18,7 @@ ann_file_test = 'data/daisee/daisee_test_img_list.txt'
 img_norm_cfg = dict(
     mean=[102.21, 77.74, 72.60], std=[52.00, 40.49, 42.07], to_bgr=False)
 train_pipeline = [
-    dict(type='SampleFrames', clip_len=8, clip_window_alpha=5, downsample_ratio=1),
+    dict(type='SampleFrames', num_wins=8, alpha=5, gamma=1),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
@@ -27,7 +27,7 @@ train_pipeline = [
     dict(type='ToTensor', keys=['imgs', 'label'])
 ]
 val_pipeline = [
-    dict(type='SampleFrames', clip_len=8, clip_window_alpha=5, downsample_ratio=1, test_mode=True),
+    dict(type='SampleFrames', num_wins=8, alpha=5, gamma=1, test_mode=True),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0),
     dict(type='Normalize', **img_norm_cfg),
@@ -36,7 +36,7 @@ val_pipeline = [
     dict(type='ToTensor', keys=['imgs'])
 ]
 test_pipeline = [
-    dict(type='SampleFrames', clip_len=8, clip_window_alpha=5, downsample_ratio=1, test_mode=True),
+    dict(type='SampleFrames', num_wins=8, alpha=5, gamma=1, test_mode=True),
     dict(type='RawFrameDecode'),
     dict(type='Flip', flip_ratio=0),
     dict(type='Normalize', **img_norm_cfg),
@@ -61,7 +61,7 @@ data = dict(
         ann_file=ann_file_train,
         data_prefix=data_root,
         pipeline=train_pipeline,
-        duplicate_times = [3, 3, 3, 3]),
+        num_insts = [3, 3, 3, 3]),
     val=dict(
         type=dataset_type,
         filename_tmpl='frame_det_00_{:06}.bmp',
@@ -91,4 +91,3 @@ checkpoint_config = dict(interval=1)
 find_unused_parameters = False
 
 optimizer_config = dict(grad_clip=dict(max_norm=40, norm_type=2))
-
