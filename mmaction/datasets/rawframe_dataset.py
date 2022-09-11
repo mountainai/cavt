@@ -74,10 +74,10 @@ class RawframeDataset(BaseDataset):
                  sample_by_class=False,
                  power=0.,
                  dynamic_length=False,
-                 duplicate_times = [1, 1, 1, 1]):
+                 num_insts = [1, 1, 1, 1]):
         self.filename_tmpl = filename_tmpl
         self.with_offset = with_offset
-        self.duplicate_times = duplicate_times
+        self.num_insts = num_insts
         super().__init__(
             ann_file,
             pipeline,
@@ -120,18 +120,18 @@ class RawframeDataset(BaseDataset):
 
                 # Duplicate video info to generate multiple instances
                 label_index = [0.0, 0.33, 0.66, 1.0].index(video_info['label'])
-                video_duplicate_times = self.duplicate_times[label_index]
+                num_instances = self.num_insts[label_index]
 
-                int_part = int(video_duplicate_times)
+                int_part = int(num_instances)
                 for i in range(int_part):
                     video_info_copy = video_info.copy()
-                    video_info_copy['clip_start_idx'] = i
+                    video_info_copy['instance_start_idx'] = i
                     video_infos.append(video_info_copy)
-                decimal_part = video_duplicate_times - int_part
+                decimal_part = num_instances - int_part
                 if decimal_part > 0:
-                    if random.uniform(0, 1) < (video_duplicate_times - int(video_duplicate_times)):
+                    if random.uniform(0, 1) < (num_instances - int(num_instances)):
                         video_info_copy = video_info.copy()
-                        video_info_copy['clip_start_idx'] = int(video_duplicate_times) + 1
+                        video_info_copy['instance_start_idx'] = int(num_instances) + 1
                         video_infos.append(video_info_copy)
 
         # Shuffle video sequence to be trained
