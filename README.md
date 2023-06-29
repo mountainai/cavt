@@ -2,11 +2,10 @@
 Implementation of the Class Attention in Video Transformer
 
 ### Usage
-Step 1: Download model files from pan.baidu.com and put them optimal_checkpoint folder.
+Step 1: Download model files from googledriver/baidu as below and put them optimal_checkpoint folder.
 
-URL: https://pan.baidu.com/s/1EPeGitXScwP20Vz4E3SSMw
-
-Code: kbac
+Google Drive: https://drive.google.com/drive/folders/1POM4AD32hrZ1gVxNQE3Q-8zAvUtcDued
+Baidu: https://pan.baidu.com/s/1EPeGitXScwP20Vz4E3SSMw  kbac
 
 Step 2: run OpenFace [https://github.com/TadasBaltrusaitis/OpenFace/wiki](https://github.com/TadasBaltrusaitis/OpenFace/wiki) 
    with Docker to perform face extraction on validation set (EmotiW-EP) and test set (DAiSEE).
