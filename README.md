@@ -1,5 +1,5 @@
 ## Video Transformer for Engagement Prediction Task - PyTorch
-Implementation of the Class Attention in Video Transformer
+Implementation of the Class Attention in Video Transformer(CavT)
 
 ### Usage
 Step 1: Download model files from googledriver/baidu and put them optimal_checkpoint folder.
@@ -60,6 +60,18 @@ Mean class mse: 0.1976
 mean square error	0.0377
 mse: 0.0377
 ```
+
+### Citation
+<pre>
+@article{ai2024class,
+  title={Class-attention video transformer for engagement prediction},
+  author={Ai, Xusheng and Sheng, Victor and Li, Chunhua and Yang, Han and Cui, Zhiming},
+  journal={Multimedia Tools and Applications},
+  pages={1--20},
+  year={2024},
+  publisher={Springer}
+}
+</pre>
 
 ### References
 Some part of the code is adapted from the VideoSwinTransformer repository [https://github.com/SwinTransformer/Video-Swin-Transformer](https://github.com/SwinTransformer/Video-Swin-Transformer).
